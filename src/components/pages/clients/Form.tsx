@@ -2,14 +2,16 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { cnpj } from 'cpf-cnpj-validator';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { FormField } from '@/components/shared/FormField';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
-import { useSearchParams } from 'next/navigation';
+import { create, update } from '@/services/clients';
 
 const clientSchema = yup.object().shape({
     name: yup.string().required('A razão social é obrigatória'),
@@ -30,6 +32,7 @@ type FormValues = {
 
 const Form = () => {
     const params = useSearchParams();
+    const router = useRouter();
 
     const { handleSubmit, register, formState } = useForm({
         resolver: yupResolver(clientSchema),
@@ -40,9 +43,35 @@ const Form = () => {
         },
     });
 
-    const onSubmit = useCallback(async (values: FormValues) => {
-        console.log(values);
-    }, []);
+    const onSubmit = useCallback(
+        async (values: FormValues) => {
+            const _id = params.get('_id');
+            try {
+                !_id ? await create(values) : await update(_id, values);
+
+                router.push('/clients');
+
+                toast(
+                    `Cliente ${
+                        !_id ? 'criado' : 'atualizado'
+                    } com sucesso`,
+                    {
+                        type: 'success',
+                    },
+                );
+            } catch (error) {
+                toast(
+                    `Houve um problema ao ${
+                        !_id ? 'criar' : 'editar'
+                    } o cliente`,
+                    {
+                        type: 'error',
+                    },
+                );
+            }
+        },
+        [router, params],
+    );
 
     return (
         <form

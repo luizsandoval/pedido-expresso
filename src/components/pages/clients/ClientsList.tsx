@@ -16,14 +16,14 @@ const ClientsList = ({ clients }: ClientsListProps) => {
     const router = useRouter();
 
     const handleEdit = useCallback(
-        ({ id, name, cnpj }: Client) =>
-            router.push(`/clients/form?id=${id}&name=${name}&cnpj=${cnpj}`),
+        ({ _id, name, cnpj }: Client) =>
+            router.push(`/clients/form?_id=${_id}&name=${name}&cnpj=${cnpj}`),
         [router],
     );
 
     return clients.map((client) => (
         <Card
-            key={client.id}
+            key={client._id}
             orientation="row"
             alignContent="between"
             shouldApplyHoverEffect

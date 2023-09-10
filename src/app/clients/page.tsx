@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 };
 
 const Clients = async () => {
-    const clients = await get();
+    const { documents } = await get();
 
     return (
         <>
             <Title>CLIENTES</Title>
             <Card>
-                <ClientsList clients={clients} />
+                <ClientsList clients={documents} />
             </Card>
             <NavigationFooter>
                 <PrimaryButton isLink href="/clients/form">

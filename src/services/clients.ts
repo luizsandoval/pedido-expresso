@@ -1,19 +1,31 @@
-import { clients } from '@/__mocks/clients';
+import { GetResponse } from '@/models/api/get';
+import { PostResponse } from '@/models/api/post';
 import { Client } from '@/models/client';
 
-const get = () => {
-    return new Promise<Client[]>((resolve) =>
-        setTimeout(() => resolve(clients), 3000),
-    );
+import { api } from './api';
+
+const get = async () => {
+    const { data } = await api.get<GetResponse<Client>>('/clients/get-all');
+
+    return data.data;
 };
 
-const getOne = (id: number) => {
-    return new Promise<Client | undefined>((resolve) =>
-        setTimeout(
-            () => resolve(clients.find((order) => order.id === Number(id))),
-            3000,
-        ),
+const create = async (client: Client) => {
+    const { data } = await api.post<PostResponse<Client>>(
+        '/clients/create',
+        client,
     );
+
+    return data.data;
 };
 
-export { get, getOne };
+const update = async (id: string, client: Client) => {
+    const { data } = await api.put<PostResponse<Client>>('/clients/update', {
+        _id: id,
+        ...client,
+    });
+
+    return data.data;
+};
+
+export { get, create, update };
