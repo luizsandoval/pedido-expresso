@@ -20,7 +20,7 @@ const Card = ({
 
   return (
     <div
-      className={`flex w-full flex-${orientation} items-center justify-${alignContent} gap-2 rounded-lg border-2 border-gray-100 bg-white px-4 py-${paddingY} ${hoverEffectClasses}`}
+      className={`flex w-full flex-${orientation} items-center justify-${alignContent} gap-2 rounded-lg border-2 border-gray-100 bg-white px-4 py-${paddingY}`}
     >
       {children}
     </div>
