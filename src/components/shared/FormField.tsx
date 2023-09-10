@@ -1,3 +1,5 @@
+'use client';
+
 import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react';
 import { IMask, IMaskInput } from 'react-imask';
 

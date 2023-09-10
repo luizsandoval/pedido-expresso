@@ -8,11 +8,11 @@ import { Card } from '@/components/shared/Card';
 import { IconButton } from '@/components/shared/IconButton';
 import { Client } from '@/models/client';
 
-type ClientsListProps = {
-    clients: Client[];
+type ClientCardProps = {
+    client: Client;
 };
 
-const ClientsList = ({ clients }: ClientsListProps) => {
+const ClientCard = ({ client }: ClientCardProps) => {
     const router = useRouter();
 
     const handleEdit = useCallback(
@@ -21,13 +21,8 @@ const ClientsList = ({ clients }: ClientsListProps) => {
         [router],
     );
 
-    return clients.map((client) => (
-        <Card
-            key={client._id}
-            orientation="row"
-            alignContent="between"
-            shouldApplyHoverEffect
-        >
+    return (
+        <Card orientation="row" alignContent="between" shouldApplyHoverEffect>
             <summary className="flex flex-col gap-2">
                 <h2 className="text-sm">{client.name}</h2>
                 <p className="text-xs text-gray-400">{client.cnpj}</p>
@@ -36,7 +31,7 @@ const ClientsList = ({ clients }: ClientsListProps) => {
                 <FiChevronRight />
             </IconButton>
         </Card>
-    ));
+    );
 };
 
-export { ClientsList };
+export { ClientCard };

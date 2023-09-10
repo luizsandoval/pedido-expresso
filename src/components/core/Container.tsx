@@ -9,7 +9,7 @@ const Container = ({
   children,
   gap = 6,
 }: PropsWithChildren<ContainerProps>) => (
-  <section className={`flex flex-col gap-${gap} px-10 py-8`}>
+  <section className={`flex flex-col gap-${gap} px-10 pt-8 pb-28`}>
     {children}
   </section>
 );
