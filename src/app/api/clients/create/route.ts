@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { insertOne } from '../../_lib/insertOne';
+import { insertOne } from '../../_lib';
 
 export async function POST(request: Request) {
     try {

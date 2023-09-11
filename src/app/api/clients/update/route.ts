@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { updateOne } from '../../_lib/updateOne';
+import { updateOne } from '../../_lib';
 
 export async function PUT(request: Request) {
     try {

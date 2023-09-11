@@ -1,32 +1,18 @@
 import { NextResponse } from 'next/server';
 
-import { find } from '../../_lib/find';
+import { Client } from '@/models/client';
+
+import { find, handleFilter, handleSearchParameters } from '../../_lib';
 
 export async function GET(request: Request) {
     try {
-        const { searchParams } = new URL(request.url);
-        const searchValue = searchParams.get('searchValue');
-        let filter = {};
+        const { page, limit, searchValue } = handleSearchParameters(
+            request.url,
+        );
 
-        if (searchValue)
-            filter = {
-                $or: [
-                    {
-                        name: {
-                            $regex: searchValue,
-                            $options: 'i',
-                        },
-                    },
-                    {
-                        cnpj: {
-                            $regex: searchValue,
-                            $options: 'i',
-                        },
-                    },
-                ],
-            };
+        const filter = handleFilter<Client>(searchValue, ['cnpj', 'name']);
 
-        const data = await find('clients', filter);
+        const data = await find('clients', filter, page, limit);
 
         return NextResponse.json({
             success: true,
