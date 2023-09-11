@@ -4,9 +4,10 @@ import { Client } from '@/models/client';
 
 import { api } from './api';
 
-const get = async (searchValue?: string) => {
+const get = async (page: number, searchValue?: string) => {
     const { data } = await api.get<GetResponse<Client>>('/clients/get-all', {
         params: {
+            page,
             searchValue,
         },
     });

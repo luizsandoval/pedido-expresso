@@ -25,8 +25,6 @@ const SearchInput = ({ onSearch, placeholder, ...rest }: SearchInputProps) => {
 
     const handleChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            console.log('Event dispatched at', new Date().getTime());
-
             if (timeoutId.current) clearTimeout(timeoutId.current);
 
             const value = event.target.value;
