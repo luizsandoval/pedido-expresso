@@ -1,6 +1,6 @@
 export interface Client {
-    id: number;
+    _id?: number;
     name: string;
     cnpj: string;
-    createdAt: Date;
+    createdAt?: Date;
 }
