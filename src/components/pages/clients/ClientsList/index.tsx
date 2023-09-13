@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import useSWRInfinite from 'swr/infinite';
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { GetDataFormat } from '@/models/api/get';
@@ -14,25 +15,30 @@ type ClientsListProps = {
 };
 
 const ClientsList = ({ searchValue }: ClientsListProps) => {
-    const [page, setPage] = useState(1);
-    const [isLoadingNextPage, setIsLoadingNextPage] = useState(false);
-    const [{ documents, pagination }, setResponse] = useState<
-        GetDataFormat<Client>
-    >({
-        documents: [],
-        pagination: {
-            currentPage: page,
-            hasNextPage: false,
-            nextPage: null,
-            pages: 1,
-            total: 0,
+    const { data, setSize, isLoading } = useSWRInfinite(
+        (index, previousPageData: GetDataFormat<Client>) => {
+            if (previousPageData && !previousPageData.pagination.hasNextPage)
+                return null;
+
+            return [index + 1, searchValue, 'clients'];
         },
-    } as GetDataFormat<Client>);
+        ([index, searchValue]) => get(index, searchValue),
+    );
+
+    const hasNextPage = useMemo(
+        () => data?.at(-1)?.pagination.hasNextPage,
+        [data],
+    );
+
+    const documents = useMemo(
+        () => data?.flatMap((page) => page.documents),
+        [data],
+    );
 
     const fetchNextPage = useCallback(() => {
-        if (pagination?.hasNextPage && !isLoadingNextPage)
-            setPage((currentPage) => currentPage + 1);
-    }, [pagination?.hasNextPage, isLoadingNextPage]);
+        if (!isLoading && hasNextPage)
+            setSize((currentPage) => currentPage + 1);
+    }, [hasNextPage, isLoading, setSize]);
 
     const targetRef = useIntersectionObserver<HTMLDivElement>(
         ([target]) => {
@@ -43,20 +49,7 @@ const ClientsList = ({ searchValue }: ClientsListProps) => {
         },
     );
 
-    useEffect(() => {
-        setIsLoadingNextPage(true);
-
-        get(page, searchValue)
-            .then(({ documents, pagination }) => {
-                setResponse((currentResponse) => ({
-                    documents: !searchValue
-                        ? [...currentResponse.documents, ...documents]
-                        : documents,
-                    pagination,
-                }));
-            })
-            .finally(() => setIsLoadingNextPage(false));
-    }, [page, searchValue]);
+    if (isLoading) return <h1>Carregando...</h1>;
 
     return documents?.map((client, index) =>
         index === documents.length - 1 ? (
