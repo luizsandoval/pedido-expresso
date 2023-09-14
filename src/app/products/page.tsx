@@ -1,41 +1,40 @@
 import { Metadata } from 'next';
 
-import { ClientsList } from '@/components/pages/clients/ClientsList';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { Title } from '@/components/shared/Title';
 import { Card } from '@/components/shared/Card';
+import { ProductsList } from '@/components/pages/products/ProductsList';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
 import { SearchInput } from '@/components/shared/SearchInput';
+import { PageProps } from '@/models/page-props';
 
 export const metadata: Metadata = {
-    title: 'Clientes',
+    title: 'Produtos',
 };
 
-const Clients = ({
+const Products = ({
     searchParams,
-}: {
-    searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+}: PageProps) => {
     return (
         <>
-            <Title>CLIENTES</Title>
+            <Title>PRODUTOS</Title>
             <Card>
                 <SearchInput
                     autoFocus
                     placeholder="Digite para filtrar..."
                     defaultValue={searchParams['searchValue']}
                 />
-                <ClientsList
+                <ProductsList
                     searchValue={searchParams['searchValue'] as string}
                 />
             </Card>
             <NavigationFooter>
-                <PrimaryButton isLink href="/clients/form">
-                    Criar cliente
+                <PrimaryButton isLink href="/products/form">
+                    Criar produto
                 </PrimaryButton>
             </NavigationFooter>
         </>
     );
 };
 
-export default Clients;
+export default Products;

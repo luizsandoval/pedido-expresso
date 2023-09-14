@@ -1,9 +1,9 @@
 'use client';
 
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
     ChangeEvent,
     DetailedHTMLProps,
-    Dispatch,
     InputHTMLAttributes,
     useCallback,
     useRef,
@@ -14,13 +14,15 @@ type SearchInputProps = Omit<
     DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
     'onChange' | 'className' | 'placeholder'
 > & {
-    onSearch: Dispatch<string>;
     placeholder: string;
 };
 
 const DELAY_IN_MS = 500;
 
-const SearchInput = ({ onSearch, placeholder, ...rest }: SearchInputProps) => {
+const SearchInput = ({ placeholder, ...rest }: SearchInputProps) => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
     const handleChange = useCallback(
@@ -29,11 +31,17 @@ const SearchInput = ({ onSearch, placeholder, ...rest }: SearchInputProps) => {
 
             const value = event.target.value;
 
-            const timeout = setTimeout(() => onSearch(value), DELAY_IN_MS);
+            const timeout = setTimeout(() => {
+                const params = new URLSearchParams(searchParams);
+
+                params.set('searchValue', value);
+
+                router.push(pathname + '?' + params.toString());
+            }, DELAY_IN_MS);
 
             timeoutId.current = timeout;
         },
-        [onSearch, timeoutId],
+        [router, pathname, searchParams, timeoutId],
     );
 
     return (
