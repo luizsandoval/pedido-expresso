@@ -25,32 +25,32 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
         }).toString();
 
         return (
-            <Card
-                ref={ref}
-                className="flex-row content-between"
-                shouldApplyHoverEffect
-            >
-                <summary className="flex w-full flex-row gap-4">
-                    <Image
-                        width={40}
-                        height={40}
-                        objectFit='contain'
-                        alt={product.name}
-                        src={product.photo.url || ''}
-                    />
-                    <div className='flex flex-col gap-2'>
-                        <h2 className="text-sm">{product.name}</h2>
-                        <p className="text-xs text-gray-400">
-                            <FormattedCurrency value={product.price} />
-                        </p>
-                    </div>
-                </summary>
-                <Link href={`/products/form?${params}`}>
-                    <IconButton className='text-violet-500'>
-                        <FiChevronRight size={20}/>
+            <Link className='w-full' href={`/products/form?${params}`}>
+                <Card
+                    ref={ref}
+                    className="flex-row content-between"
+                    shouldApplyHoverEffect
+                >
+                    <summary className="flex w-full flex-row gap-4">
+                        <Image
+                            width={40}
+                            height={40}
+                            objectFit="contain"
+                            alt={product.name}
+                            src={product.photo.url || ''}
+                        />
+                        <div className="flex flex-col gap-2">
+                            <h2 className="text-sm">{product.name}</h2>
+                            <p className="text-xs text-gray-400">
+                                <FormattedCurrency value={product.price} />
+                            </p>
+                        </div>
+                    </summary>
+                    <IconButton className="text-violet-500">
+                        <FiChevronRight size={20} />
                     </IconButton>
-                </Link>
-            </Card>
+                </Card>
+            </Link>
         );
     },
 );
