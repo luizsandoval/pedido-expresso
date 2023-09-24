@@ -8,12 +8,9 @@ const IconButton = ({
     children,
     ...rest
 }: PropsWithChildren<
-    Omit<
-        DetailedHTMLProps<
-            ButtonHTMLAttributes<HTMLButtonElement>,
-            HTMLButtonElement
-        >,
-        'className'
+    DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
     >
 >) => (
     <button
