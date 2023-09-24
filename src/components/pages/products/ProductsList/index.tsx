@@ -53,8 +53,6 @@ const ProductsList = ({ searchValue }: ProductsListProps) => {
 
     if (!documents?.length) return <h1>Produtos cadastrados aparecerão aqui</h1>;
 
-    console.log(documents);
-
     return documents?.map((product, index) =>
         index === documents.length - 1 ? (
             <ProductCard key={product._id} product={product} ref={targetRef} />
