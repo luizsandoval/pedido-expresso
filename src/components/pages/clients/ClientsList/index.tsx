@@ -16,7 +16,7 @@ type ClientsListProps = {
 
 const ClientsList = ({ searchValue }: ClientsListProps) => {
     const { data, setSize, isLoading } = useSWRInfinite(
-        (index, previousPageData: GetDataFormat<Client>) => {
+        (index, previousPageData: GetDataFormat<Required<Client>>) => {
             if (previousPageData && !previousPageData.pagination.hasNextPage)
                 return null;
 

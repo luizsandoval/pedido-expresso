@@ -16,7 +16,7 @@ type ProductsListProps = {
 
 const ProductsList = ({ searchValue }: ProductsListProps) => {
     const { data, setSize, isLoading } = useSWRInfinite(
-        (index, previousPageData: GetDataFormat<Product>) => {
+        (index, previousPageData: GetDataFormat<Required<Product>>) => {
             if (previousPageData && !previousPageData.pagination.hasNextPage)
                 return null;
 
@@ -26,7 +26,7 @@ const ProductsList = ({ searchValue }: ProductsListProps) => {
     );
 
     const hasNextPage = useMemo(
-        () => data?.at(-1)?.pagination.hasNextPage,
+        () => data?.at(-1)?.pagination?.hasNextPage,
         [data],
     );
 
@@ -50,6 +50,10 @@ const ProductsList = ({ searchValue }: ProductsListProps) => {
     );
 
     if (isLoading) return <h1>Carregando...</h1>;
+
+    if (!documents?.length) return <h1>Produtos cadastrados aparecerão aqui</h1>;
+
+    console.log(documents);
 
     return documents?.map((product, index) =>
         index === documents.length - 1 ? (

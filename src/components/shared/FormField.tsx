@@ -9,11 +9,14 @@ type FormFieldProps = Omit<
 > & {
     label: string;
     errorMessage?: string;
-    maskOptions?: IMask.AnyMaskedOptions;
+    maskOptions?: IMask.AnyMaskedOptions & { unmask?: boolean };
 };
 
 const FormField = forwardRef<HTMLInputElement | null, FormFieldProps>(
-    ({ label, errorMessage, required, maskOptions, ...rest }, ref) => (
+    (
+        { label, errorMessage, required, maskOptions, onChange, ...rest },
+        ref,
+    ) => (
         <fieldset className="flex w-full flex-col gap-2 transition-all">
             <label className="w-full font-bold">
                 {label}
@@ -22,6 +25,10 @@ const FormField = forwardRef<HTMLInputElement | null, FormFieldProps>(
             <IMaskInput
                 {...maskOptions}
                 inputRef={ref}
+                onAccept={(e) =>
+                    onChange && onChange({ target: { value: Number(e || 0) } })
+                }
+                onChange={onChange}
                 className="w-full rounded-lg border-2 border-gray-100 p-4"
                 {...rest}
             />

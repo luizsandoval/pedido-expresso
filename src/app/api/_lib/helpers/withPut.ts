@@ -2,13 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { updateOne } from '../../_lib';
 
-export async function withPUT(
-    request: Request,
-    resourceName: string,
-    customBody?: Record<string, unknown>,
-) {
+export async function withPUT(request: Request, resourceName: string) {
     try {
-        const payload = customBody ?? (await request.json());
+        const payload = await request.json();
 
         if (!('_id' in payload)) throw 'Missing _id in request body';
 

@@ -4,13 +4,9 @@ import { ApiResponse } from '@/models/api/api-response';
 
 import { insertOne } from '../../_lib';
 
-export async function withPOST(
-    request: Request,
-    resourceName: string,
-    customBody?: Record<string, unknown>,
-) {
+export async function withPOST(request: Request, resourceName: string) {
     try {
-        const payload = customBody ?? (await request.json());
+        const payload = await request.json();
 
         const insertedId = await insertOne(payload, resourceName);
 

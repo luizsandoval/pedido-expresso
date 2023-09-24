@@ -1,6 +1,6 @@
-export interface Client {
-    _id?: number;
+import { BaseResource } from './base';
+
+export interface Client extends BaseResource {
     name: string;
     cnpj: string;
-    createdAt?: Date;
 }

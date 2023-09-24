@@ -6,37 +6,48 @@ import { FiChevronRight } from 'react-icons/fi';
 import { Card } from '@/components/shared/Card';
 import { IconButton } from '@/components/shared/IconButton';
 import { Product } from '@/models/product';
+import { FormattedCurrency } from '@/components/shared/FormattedCurrency';
 
 type ProductCardProps = {
-    product: Product;
+    product: Required<Product>;
 };
 
 const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
     ({ product }, ref) => {
         const { _id, name, price, photo } = product;
 
+        const params = new URLSearchParams({
+            _id,
+            name,
+            price: price.toString(),
+            'photo.url': photo?.url || '',
+            'photo.publicId': photo?.publicId || '',
+        }).toString();
+
         return (
             <Card
                 ref={ref}
-                orientation="row"
-                alignContent="between"
+                className="flex-row content-between"
                 shouldApplyHoverEffect
             >
-                <summary className="flex flex-col gap-2">
+                <summary className="flex w-full flex-row gap-4">
                     <Image
-                        width={60}
-                        height={60}
+                        width={40}
+                        height={40}
+                        objectFit='contain'
                         alt={product.name}
-                        src={product.photo}
+                        src={product.photo.url || ''}
                     />
-                    <h2 className="text-sm">{product.name}</h2>
-                    <p className="text-xs text-gray-400">{product.price}</p>
+                    <div className='flex flex-col gap-2'>
+                        <h2 className="text-sm">{product.name}</h2>
+                        <p className="text-xs text-gray-400">
+                            <FormattedCurrency value={product.price} />
+                        </p>
+                    </div>
                 </summary>
-                <Link
-                    href={`/products/form?_id=${_id}&name=${name}&price=${price}&photo=${photo}`}
-                >
-                    <IconButton>
-                        <FiChevronRight />
+                <Link href={`/products/form?${params}`}>
+                    <IconButton className='text-violet-500'>
+                        <FiChevronRight size={20}/>
                     </IconButton>
                 </Link>
             </Card>

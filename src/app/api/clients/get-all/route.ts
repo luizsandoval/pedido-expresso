@@ -1,7 +1,7 @@
 import { Client } from '@/models/client';
 
-import { withGET } from '../../_lib/helpers';
+import { CLIENTS_COLLECTION, withGET } from '../../_lib';
 
 export async function GET(request: Request) {
-    return withGET<Client>(request, 'clients', ['cnpj', 'name']);
+    return withGET<Client>(request, CLIENTS_COLLECTION, ['cnpj', 'name']);
 }

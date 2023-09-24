@@ -29,7 +29,7 @@ const count = async (
         data,
     );
 
-    return response.documents[0].total;
+    return response.documents[0]?.total || 0;
 };
 
 export { count };
