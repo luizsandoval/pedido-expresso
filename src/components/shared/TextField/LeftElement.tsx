@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react';
 
 const LeftElement = ({ children }: PropsWithChildren) => (
-    <span className="absolute bottom-auto left-2 mx-2 text-lg text-gray-500">
+    <div className="absolute bottom-auto left-2 mx-2 text-lg text-gray-500">
         {children}
-    </span>
+    </div>
 );
 
 export { LeftElement };
