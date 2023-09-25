@@ -1,7 +1,4 @@
-'use client';
-
 import { Metadata } from 'next';
-import { useCallback, useState } from 'react';
 
 import { ClientsList } from '@/components/pages/clients/ClientsList';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
@@ -14,23 +11,23 @@ export const metadata: Metadata = {
     title: 'Clientes',
 };
 
-const Clients = () => {
-    const [searchValue, setSearchValue] = useState<string>('');
-
-    const handleSearch = useCallback((value: string) => {
-        setSearchValue(value);
-    }, []);
-
+const Clients = ({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined };
+}) => {
     return (
         <>
             <Title>CLIENTES</Title>
             <Card>
                 <SearchInput
                     autoFocus
-                    onSearch={handleSearch}
                     placeholder="Digite para filtrar..."
+                    defaultValue={searchParams['searchValue']}
                 />
-                <ClientsList searchValue={searchValue} />
+                <ClientsList
+                    searchValue={searchParams['searchValue'] as string}
+                />
             </Card>
             <NavigationFooter>
                 <PrimaryButton isLink href="/clients/form">

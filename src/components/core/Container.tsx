@@ -1,17 +1,15 @@
-import { PropsWithChildren } from "react";
-
-type ContainerProps = {
-  gap?: number;
-  center?: boolean;
-};
+import { HTMLAttributes, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const Container = ({
-  children,
-  gap = 6,
-}: PropsWithChildren<ContainerProps>) => (
-  <section className={`flex flex-col gap-${gap} px-10 pt-8 pb-28`}>
-    {children}
-  </section>
+    children,
+    className,
+}: PropsWithChildren<Pick<HTMLAttributes<HTMLElement>, 'className'>>) => (
+    <section
+        className={twMerge(`flex flex-col gap-6 px-10 pb-28 pt-8`, className)}
+    >
+        {children}
+    </section>
 );
 
 export { Container };
