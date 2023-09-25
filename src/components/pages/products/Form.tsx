@@ -4,14 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { FiCamera } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import { FormField } from '@/components/shared/FormField';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
+import { TextField } from '@/components/shared/TextField';
 import { Product } from '@/models/product';
 import {
     UploadProgressInfo,
@@ -39,7 +39,7 @@ const Form = () => {
     const [uploadProgress, setUploadProgress] =
         useState<UploadProgressInfo | null>(null);
 
-    const { control, handleSubmit, register, formState, watch, setValue } =
+    const { handleSubmit, register, formState, watch, setValue } =
         useForm({
             resolver: yupResolver(productSchema),
             mode: 'onTouched',
@@ -123,42 +123,25 @@ const Form = () => {
             className="flex w-full flex-col gap-4"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <FormField
-                required
-                autoFocus
-                label="Nome"
-                {...register('name')}
-                errorMessage={formState.errors.name?.message}
-            />
-            <Controller
-                name="price"
-                control={control}
-                render={({ field }) => (
-                    <FormField
-                        {...field}
-                        required
-                        label="Preço"
-                        maskOptions={{
-                            unmask: true,
-                            mask: 'R$ num',
-                            lazy: false,
-                            blocks: {
-                                num: {
-                                    mask: Number,
-                                    scale: 2,
-                                    signed: true,
-                                    radix: ',',
-                                    thousandsSeparator: '.',
-                                    padFractionalZeros: true,
-                                },
-                            },
-                        }}
-                        onChange={field.onChange}
-                        value={field.value.toString()}
-                        errorMessage={formState.errors.price?.message}
-                    />
-                )}
-            />
+            <TextField.Root>
+                <TextField.Label label="Nome" isRequired />
+                <TextField.Input autoFocus {...register('name')} />
+                <TextField.ErrorMessage
+                    message={formState.errors.name?.message}
+                />
+            </TextField.Root>
+
+            <TextField.Root>
+                <TextField.Label label="Preço" isRequired />
+                <TextField.Input
+                    type="number"
+                    {...register('price')}
+                />
+                <TextField.ErrorMessage
+                    message={formState.errors.price?.message}
+                />
+            </TextField.Root>
+
             <label className="flex w-full flex-col gap-2">
                 <span className="font-bold">Foto</span>
                 <input type="file" hidden onChange={handleFileChange} />
