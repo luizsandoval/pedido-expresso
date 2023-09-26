@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 import { ApiResponse } from '@/models/api/api-response';
 import { Product } from '@/models/product';
 
-import { PRODUCTS_COLLECTION, withPUT } from '../../_lib';
+import { Collection, withPUT } from '../../_lib';
 
 export async function PUT(request: Request) {
     return (NextResponse<ApiResponse<Product>>).json(
-        await withPUT(request, PRODUCTS_COLLECTION),
+        await withPUT(request, Collection.Products),
     );
 }

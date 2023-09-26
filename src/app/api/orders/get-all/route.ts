@@ -1,7 +1,15 @@
+import { NextResponse } from 'next/server';
+
+import { GetResponse } from '@/models/api/get';
 import { Order } from '@/models/order';
 
-import { ORDERS_COLLECTION, withGET } from '../../_lib';
+import { Collection, withGET } from '../../_lib';
 
 export async function GET(request: Request) {
-    return withGET<Order>(request, ORDERS_COLLECTION, ['client']);
+    return (NextResponse<GetResponse<Order[]>>).json(
+        await withGET<Order>(request.url, Collection.Orders, [
+            'client.name',
+            'client.cnpj',
+        ]),
+    );
 }
