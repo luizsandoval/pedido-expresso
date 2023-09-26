@@ -1,14 +1,15 @@
 import { BaseResource } from './base';
+import { Client } from './client';
 import { Product } from './product';
 
-export interface Item {
-    product: Product;
-    quantity: number;
+export interface OrderItem {
     total: number;
+    quantity: number;
+    product: Omit<Product, 'photo'>;
 }
 
 export interface Order extends BaseResource {
-    client: string;
-    items: Item[];
     total: number;
+    client: Client;
+    items: OrderItem[];
 }
