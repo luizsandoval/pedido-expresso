@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { MutableRefObject, ReactNode, useCallback, useMemo } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
@@ -8,13 +8,20 @@ import { GetDataFormat } from '@/models/api/get';
 import { Client } from '@/models/client';
 import { get } from '@/services/clients';
 
-import { ClientCard } from './ClientCard';
+import { ClientListItem } from './ClientListItem';
 
 type ClientsListProps = {
     searchValue: string;
+    renderCard?: (props: {
+        client: Required<Client>;
+        targetRef?: MutableRefObject<HTMLDivElement | null>;
+    }) => ReactNode;
 };
 
-const ClientsList = ({ searchValue }: ClientsListProps) => {
+const ClientsList = ({
+    searchValue,
+    renderCard: customRenderCard,
+}: ClientsListProps) => {
     const { data, setSize, isLoading } = useSWRInfinite(
         (index, previousPageData: GetDataFormat<Required<Client>>) => {
             if (previousPageData && !previousPageData.pagination.hasNextPage)
@@ -35,11 +42,6 @@ const ClientsList = ({ searchValue }: ClientsListProps) => {
         [data],
     );
 
-    const fetchNextPage = useCallback(() => {
-        if (!isLoading && hasNextPage)
-            setSize((currentPage) => currentPage + 1);
-    }, [hasNextPage, isLoading, setSize]);
-
     const targetRef = useIntersectionObserver<HTMLDivElement>(
         ([target]) => {
             if (target.isIntersecting) fetchNextPage();
@@ -49,14 +51,34 @@ const ClientsList = ({ searchValue }: ClientsListProps) => {
         },
     );
 
+    const fetchNextPage = useCallback(() => {
+        if (!isLoading && hasNextPage)
+            setSize((currentPage) => currentPage + 1);
+    }, [hasNextPage, isLoading, setSize]);
+
+    const renderCard = useCallback(
+        (
+            client: Required<Client>,
+            ref?: MutableRefObject<HTMLDivElement | null>,
+        ) =>
+            customRenderCard ? (
+                customRenderCard({ client, targetRef: ref })
+            ) : (
+                <ClientListItem
+                    key={client._id}
+                    client={client}
+                    ref={targetRef}
+                />
+            ),
+        [customRenderCard, targetRef],
+    );
+
     if (isLoading) return <h1>Carregando...</h1>;
 
     return documents?.map((client, index) =>
-        index === documents.length - 1 ? (
-            <ClientCard key={client._id} client={client} ref={targetRef} />
-        ) : (
-            <ClientCard key={client._id} client={client} />
-        ),
+        index === documents.length - 1
+            ? renderCard(client, targetRef)
+            : renderCard(client),
     );
 };
 

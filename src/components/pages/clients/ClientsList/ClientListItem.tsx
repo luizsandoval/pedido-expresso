@@ -2,15 +2,16 @@ import Link from 'next/link';
 import { forwardRef } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 
-import { Card } from '@/components/shared/Card';
 import { IconButton } from '@/components/shared/IconButton';
 import { Client } from '@/models/client';
 
-type ClientCardProps = {
+import { ClientCard } from '../ClientCard';
+
+type ClientListItemProps = {
     client: Required<Client>;
 };
 
-const ClientCard = forwardRef<HTMLDivElement, ClientCardProps>(
+const ClientListItem = forwardRef<HTMLDivElement, ClientListItemProps>(
     ({ client }, ref) => {
         const { _id, name, cnpj } = client;
 
@@ -21,25 +22,17 @@ const ClientCard = forwardRef<HTMLDivElement, ClientCardProps>(
         }).toString();
 
         return (
-            <Card
-                ref={ref}
-                shouldApplyHoverEffect
-                className="flex-row justify-between"
-            >
-                <summary className="flex flex-col gap-2">
-                    <h2 className="text-sm">{name}</h2>
-                    <p className="text-xs text-gray-400">{cnpj}</p>
-                </summary>
+            <ClientCard.Root ref={ref} client={client}>
                 <Link href={`/clients/form?${params}`}>
                     <IconButton>
                         <FiChevronRight />
                     </IconButton>
                 </Link>
-            </Card>
+            </ClientCard.Root>
         );
     },
 );
 
-ClientCard.displayName = 'ClientCard';
+ClientListItem.displayName = 'ClientListItem';
 
-export { ClientCard };
+export { ClientListItem };

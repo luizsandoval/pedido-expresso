@@ -19,7 +19,7 @@ export default function Home() {
                 <Orders />
                 <Shortcuts />
                 <NavigationFooter>
-                    <PrimaryButton isLink href="/orders/form">
+                    <PrimaryButton isLink href="/orders/form/1">
                         Novo pedido
                     </PrimaryButton>
                 </NavigationFooter>

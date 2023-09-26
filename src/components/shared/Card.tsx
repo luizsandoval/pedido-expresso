@@ -3,10 +3,10 @@ import { twMerge } from 'tailwind-merge';
 
 type CardProps = {
     shouldApplyHoverEffect?: boolean;
-} & Pick<HTMLAttributes<HTMLDivElement>, 'className'>;
+} & Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'onClick'>;
 
 const Card = forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(
-    ({ children, className, shouldApplyHoverEffect = false }, ref) => {
+    ({ children, className, onClick, shouldApplyHoverEffect = false }, ref) => {
         const hoverEffectClasses = shouldApplyHoverEffect
             ? 'transition-all hover:border-2 hover:bg-indigo-50 hover:cursor-pointer'
             : '';
@@ -14,6 +14,7 @@ const Card = forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(
         return (
             <div
                 ref={ref}
+                onClick={onClick}
                 className={twMerge(
                     `flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-gray-100 bg-white px-4 py-4`,
                     hoverEffectClasses,
