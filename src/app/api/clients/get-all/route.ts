@@ -6,14 +6,7 @@ import { Client } from '@/models/client';
 import { CLIENTS_COLLECTION, withGET } from '../../_lib';
 
 export async function GET(request: Request) {
-    try {
-        return (NextResponse<GetResponse<Client[]>>).json(
-            await withGET<Client>(request, CLIENTS_COLLECTION, [
-                'cnpj',
-                'name',
-            ]),
-        );
-    } catch (error) {
-        return NextResponse.error();
-    }
+    return (NextResponse<GetResponse<Client[]>>).json(
+        await withGET<Client>(request, CLIENTS_COLLECTION, ['cnpj', 'name']),
+    );
 }

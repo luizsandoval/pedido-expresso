@@ -6,11 +6,7 @@ import { Product } from '@/models/product';
 import { PRODUCTS_COLLECTION, withPOST } from '../../_lib';
 
 export async function POST(request: Request) {
-    try {
-        return (NextResponse<ApiResponse<Product>>).json(
-            await withPOST(request, PRODUCTS_COLLECTION),
-        );
-    } catch (error) {
-        return NextResponse.error();
-    }
+    return (NextResponse<ApiResponse<Product>>).json(
+        await withPOST(request, PRODUCTS_COLLECTION),
+    );
 }

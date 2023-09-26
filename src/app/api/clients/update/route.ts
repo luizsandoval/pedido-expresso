@@ -6,11 +6,7 @@ import { Client } from '@/models/client';
 import { CLIENTS_COLLECTION, withPUT } from '../../_lib';
 
 export async function PUT(request: Request) {
-    try {
-        return (NextResponse<ApiResponse<Client>>).json(
-            await withPUT(request, CLIENTS_COLLECTION),
-        );
-    } catch (error) {
-        return NextResponse.error();
-    }
+    return (NextResponse<ApiResponse<Client>>).json(
+        await withPUT(request, CLIENTS_COLLECTION),
+    );
 }

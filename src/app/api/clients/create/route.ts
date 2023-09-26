@@ -6,11 +6,7 @@ import { Client } from '@/models/client';
 import { CLIENTS_COLLECTION, withPOST } from '../../_lib';
 
 export async function POST(request: Request) {
-    try {
-        return (NextResponse<ApiResponse<Client>>).json(
-            await withPOST(request, CLIENTS_COLLECTION),
-        );
-    } catch (error) {
-        return NextResponse.error();
-    }
+    return (NextResponse<ApiResponse<Client>>).json(
+        await withPOST(request, CLIENTS_COLLECTION),
+    );
 }
