@@ -1,7 +1,3 @@
-import { NextResponse } from 'next/server';
-
-import { ApiResponse } from '@/models/api/api-response';
-
 import { insertOne } from '../../_lib';
 
 export async function withPOST(request: Request, resourceName: string) {
@@ -15,13 +11,13 @@ export async function withPOST(request: Request, resourceName: string) {
             ...payload,
         };
 
-        return (NextResponse<ApiResponse<typeof data>>).json({
+        return {
             success: true,
             data,
-        });
+        };
     } catch (error) {
         console.log(error);
 
-        return NextResponse.error();
+        throw error;
     }
 }
