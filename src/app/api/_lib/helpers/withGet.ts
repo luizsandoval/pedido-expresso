@@ -3,13 +3,13 @@ import { find } from '..';
 import { handleFilter, handleSearchParameters } from '.';
 
 export async function withGET<T extends Object>(
-    request: Request,
+    requestUrl: string,
     resourceName: string,
     resourceKeys: (keyof T)[],
 ) {
     try {
         const { page, limit, searchValue } = handleSearchParameters(
-            request.url,
+            requestUrl,
         );
 
         const filter = handleFilter<T>(searchValue, resourceKeys);

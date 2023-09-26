@@ -7,6 +7,6 @@ import { CLIENTS_COLLECTION, withGET } from '../../_lib';
 
 export async function GET(request: Request) {
     return (NextResponse<GetResponse<Client[]>>).json(
-        await withGET<Client>(request, CLIENTS_COLLECTION, ['cnpj', 'name']),
+        await withGET<Client>(request.url, CLIENTS_COLLECTION, ['cnpj', 'name']),
     );
 }
