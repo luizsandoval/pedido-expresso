@@ -36,8 +36,6 @@ const find = async <T>(
     const hasNextPage = page < pages;
     const nextPage = hasNextPage ? page + 1 : null;
 
-    console.log(documents);
-
     const response = {
         documents: documents.documents || [],
         pagination: { pages, total, hasNextPage, nextPage, currentPage: page },

@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server';
-
 import { updateOne } from '../../_lib';
 
 export async function withPUT(request: Request, resourceName: string) {
@@ -10,13 +8,13 @@ export async function withPUT(request: Request, resourceName: string) {
 
         await updateOne(payload._id, payload, resourceName);
 
-        return NextResponse.json({
+        return {
             success: true,
             data: payload,
-        });
+        };
     } catch (error) {
         console.log(error);
 
-        return NextResponse.error();
+        throw error;
     }
 }
