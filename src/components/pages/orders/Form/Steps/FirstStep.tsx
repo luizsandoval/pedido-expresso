@@ -4,8 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { FiCheck } from 'react-icons/fi';
-import { twMerge } from 'tailwind-merge';
 import * as yup from 'yup';
 
 import { ClientCard } from '@/components/pages/clients/ClientCard';
@@ -18,6 +16,7 @@ import { Title } from '@/components/shared/Title';
 import { Client } from '@/models/client';
 
 import { StepProps } from './step-props';
+import { Radio } from '@/components/shared/Radio';
 
 const firstStepSchema = yup.object().shape({
     client: yup
@@ -58,10 +57,8 @@ const FirstStep = ({ onValidStateChange }: StepProps) => {
 
             params.set('client', JSON.stringify(client));
 
-            console.log(pathname);
-
-            router.push(pathname + '?' + params.toString());
-            router.push('/orders/form/2' + '?' + params.toString());
+            router.push(`${pathname}?${params.toString()}`);
+            router.push(`/orders/form/2?${params.toString()}`);
         },
         [searchParams, router, pathname],
     );
@@ -90,38 +87,21 @@ const FirstStep = ({ onValidStateChange }: StepProps) => {
                             <ClientCard.Root
                                 {...props}
                                 onClick={() =>
-                                    isSelected(props?.client)
-                                        ? setValue(
-                                              'client',
-                                              {} as Required<Client>,
-                                              {
-                                                  shouldValidate: true,
-                                              },
-                                          )
-                                        : setValue('client', props.client, {
-                                              shouldValidate: true,
-                                          })
+                                    setValue(
+                                        'client',
+                                        isSelected(props?.client)
+                                            ? ({} as Required<Client>)
+                                            : props.client,
+                                        {
+                                            shouldValidate: true,
+                                        },
+                                    )
                                 }
                             >
-                                <div
-                                    className={twMerge(
-                                        'flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-300 transition',
-                                        isSelected(props?.client) &&
-                                            'border-none bg-violet-500 text-white',
-                                    )}
-                                >
-                                    <input
-                                        hidden
-                                        type="radio"
-                                        checked={
-                                            clientId === props?.client?._id
-                                        }
-                                        value={props?.client?._id}
-                                    />
-                                    {isSelected(props?.client) && (
-                                        <FiCheck size={16} />
-                                    )}
-                                </div>
+                                <Radio
+                                    value={props?.client?._id}
+                                    isChecked={isSelected(props.client)}
+                                />
                             </ClientCard.Root>
                         )}
                     />

@@ -5,7 +5,7 @@ import { Client } from '@/models/client';
 
 type RootProps = {
     client: Required<Client>;
-    onClick(): void;
+    onClick?: () => void;
 };
 
 const Root = forwardRef<HTMLDivElement, PropsWithChildren<RootProps>>(

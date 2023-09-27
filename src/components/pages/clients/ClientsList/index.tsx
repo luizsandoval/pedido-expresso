@@ -13,6 +13,7 @@ import { ClientListItem } from './ClientListItem';
 type ClientsListProps = {
     searchValue: string;
     renderCard?: (props: {
+        key: string;
         client: Required<Client>;
         targetRef?: MutableRefObject<HTMLDivElement | null>;
     }) => ReactNode;
@@ -44,7 +45,9 @@ const ClientsList = ({
 
     const targetRef = useIntersectionObserver<HTMLDivElement>(
         ([target]) => {
-            if (target.isIntersecting) fetchNextPage();
+            // if (target.isIntersecting) {
+            //     fetchNextPage();
+            // }
         },
         {
             rootMargin: '100px',
@@ -62,7 +65,7 @@ const ClientsList = ({
             ref?: MutableRefObject<HTMLDivElement | null>,
         ) =>
             customRenderCard ? (
-                customRenderCard({ client, targetRef: ref })
+                customRenderCard({ key: client._id, client, targetRef: ref })
             ) : (
                 <ClientListItem
                     key={client._id}

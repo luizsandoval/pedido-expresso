@@ -22,13 +22,13 @@ const ClientListItem = forwardRef<HTMLDivElement, ClientListItemProps>(
         }).toString();
 
         return (
-            <ClientCard.Root ref={ref} client={client}>
-                <Link href={`/clients/form?${params}`}>
+            <Link className='w-full' href={`/clients/form?${params}`}>
+                <ClientCard.Root ref={ref} client={client}>
                     <IconButton>
                         <FiChevronRight />
                     </IconButton>
-                </Link>
-            </ClientCard.Root>
+                </ClientCard.Root>
+            </Link>
         );
     },
 );
