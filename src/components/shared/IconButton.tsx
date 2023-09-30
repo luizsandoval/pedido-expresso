@@ -3,9 +3,11 @@ import {
     DetailedHTMLProps,
     PropsWithChildren,
 } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const IconButton = ({
     children,
+    className,
     ...rest
 }: PropsWithChildren<
     DetailedHTMLProps<
@@ -14,7 +16,10 @@ const IconButton = ({
     >
 >) => (
     <button
-        className="rounded-full border-none bg-transparent p-4 transition-all hover:bg-gray-100 hover:brightness-90"
+        className={twMerge(
+            'rounded-full border-none bg-transparent p-4 transition-all hover:bg-gray-100 hover:brightness-90',
+            className,
+        )}
         {...rest}
     >
         {children}

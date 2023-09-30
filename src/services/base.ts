@@ -6,7 +6,7 @@ import { api } from './api';
 
 const BaseService = <T>(route: string) => {
     const get = async (page: number, searchValue?: string) => {
-        const { data } = await api.get<GetResponse<T>>(`${route}/get-all`, {
+        const { data } = await api.get<GetResponse<T>>(route, {
             params: {
                 page,
                 searchValue,

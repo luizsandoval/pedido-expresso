@@ -1,15 +1,18 @@
-import { orders } from "@/__mocks/orders";
+import { Apis } from '@/constants/apis';
+import { ApiResponse } from '@/models/api/api-response';
+import { Order } from '@/models/order';
 
-const get = () => {
-  return new Promise<typeof orders>((resolve) =>
-    setTimeout(() => resolve(orders), 3000),
-  );
+import { api } from './api';
+import { BaseService } from './base';
+
+const getOne = async (orderId: string) => {
+    const { data } = await api.get<ApiResponse<Order>>(
+        `${Apis.Orders}/${orderId}`,
+    );
+
+    return data.data;
 };
 
-const getOne = (id: number) => {
-  return new Promise<(typeof orders)[0] | undefined>((resolve) =>
-    setTimeout(() => resolve(orders.find((order) => order.id === Number(id))), 3000),
-  );
-};
+export const { get, create } = BaseService<Required<Order>>(Apis.Orders);
 
-export { get, getOne };
+export { getOne };

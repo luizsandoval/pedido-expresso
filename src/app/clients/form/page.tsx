@@ -14,9 +14,9 @@ const ClientForm = ({ searchParams }: PageProps) => {
     return (
         <>
             <Title>{isEdit ? 'EDITAR' : 'CRIAR'} CLIENTE</Title>
-            <Card>
+            <Card.Root>
                 <Form />
-            </Card>
+            </Card.Root>
         </>
     );
 };

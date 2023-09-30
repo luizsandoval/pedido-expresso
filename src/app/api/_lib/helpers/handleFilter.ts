@@ -1,6 +1,8 @@
+import { KeyOf } from '@/models/key-of';
+
 const handleFilter = <T>(
     searchValue: string | null,
-    keys: (keyof T)[],
+    keys: KeyOf<T>[],
 ) => {
     let filter = {};
 
