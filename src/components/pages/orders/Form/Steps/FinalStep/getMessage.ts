@@ -10,18 +10,16 @@ Olá, um novo pedido foi gerado, seguem os detalhes:
 *Cliente*
 ${order.client.name} - ${order.client.cnpj}
 
-*Horário*
-${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
+*Data/Horário*
+${new Date().toLocaleDateString()} às ${new Date().toLocaleTimeString()}
 
 *Items*
 ${order.items
     .map(
         (item) =>
-            `${item.quantity}x ${item.product.name} ${formatCurrency(
+            `• ${item.quantity}x ${item.product.name} ${formatCurrency(
                 item.product.price,
-            )} ${formatCurrency(item.total)}
-            
-            `,
+            )} ${formatCurrency(item.total)}`,
     )
     .join('\n')}
 
