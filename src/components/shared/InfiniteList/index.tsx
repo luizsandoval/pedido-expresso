@@ -66,7 +66,7 @@ const InfiniteList = <T extends Required<BaseResource>>({
                 defaultValue={searchValue}
                 placeholder="Digite para filtrar..."
             />
-            {documents?.map((document, index) =>
+            {documents?.map((document: any, index) =>
                 renderItem({
                     key: document._id,
                     index,
