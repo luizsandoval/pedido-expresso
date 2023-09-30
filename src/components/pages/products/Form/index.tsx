@@ -7,7 +7,6 @@ import { ChangeEvent, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FiCamera } from 'react-icons/fi';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
 
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
@@ -21,17 +20,7 @@ import {
 } from '@/services/products';
 import { ResourceWithoutBasicAttributes } from '@/models/base';
 
-const productSchema = yup.object().shape({
-    name: yup.string().required('O nome é obrigatório'),
-    price: yup
-        .number()
-        .moreThan(0, 'Digite um preço válido')
-        .required('O preço é obrigatório'),
-    photo: yup.object().shape({
-        url: yup.string(),
-        publicId: yup.string(),
-    }),
-});
+import { productSchema } from './validationSchema';
 
 const Form = () => {
     const params = useSearchParams();

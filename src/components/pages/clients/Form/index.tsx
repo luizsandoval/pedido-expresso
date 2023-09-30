@@ -1,29 +1,17 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { cnpj } from 'cpf-cnpj-validator';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
 
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
 import { create, update } from '@/services/clients';
 import { TextField } from '@/components/shared/TextField';
 
-const clientSchema = yup.object().shape({
-    name: yup.string().required('A razão social é obrigatória'),
-    cnpj: yup
-        .string()
-        .required('O CNPJ é obrigatório')
-        .test(
-            'cnpj',
-            'CNPJ inválido',
-            (value) => !!value && cnpj.isValid(value),
-        ),
-});
+import { clientSchema } from './validationSchema';
 
 type FormValues = {
     name: string;

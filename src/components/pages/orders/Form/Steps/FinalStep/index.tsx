@@ -1,4 +1,4 @@
-import { StepProps } from './step-props';
+import { StepProps } from '../models';
 
 const FinalStep = ({ onValidStateChange }: StepProps) => {
     return <h1>Final step</h1>;

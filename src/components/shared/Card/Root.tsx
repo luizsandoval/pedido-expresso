@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 type RootProps = {
     shouldApplyHoverEffect?: boolean;
-} & Pick<HTMLAttributes<HTMLDivElement>, 'className'>;
+} & Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'onClick'>;
 
 const Root = forwardRef<HTMLDivElement, PropsWithChildren<RootProps>>(
     ({ children, className, shouldApplyHoverEffect }, ref) => {

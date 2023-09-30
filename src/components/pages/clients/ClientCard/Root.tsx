@@ -13,7 +13,7 @@ const Root = forwardRef<HTMLDivElement, PropsWithChildren<RootProps>>(
         const { name, cnpj } = client;
 
         return (
-            <Card
+            <Card.Root
                 ref={ref}
                 onClick={onClick}
                 shouldApplyHoverEffect
@@ -23,8 +23,8 @@ const Root = forwardRef<HTMLDivElement, PropsWithChildren<RootProps>>(
                     <h2 className="text-sm">{name}</h2>
                     <p className="text-xs text-gray-400">{cnpj}</p>
                 </summary>
-                {children}
-            </Card>
+                <Card.RightElement>{children}</Card.RightElement>
+            </Card.Root>
         );
     },
 );

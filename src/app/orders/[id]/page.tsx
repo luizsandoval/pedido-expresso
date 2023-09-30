@@ -38,7 +38,7 @@ const OrderDetails = async ({ params }: OrderDetailsProps) => {
                 DETALHES DO PEDIDO{' '}
                 <span className="text-gray-400">#{order.number}</span>
             </Title>
-            <Card className="py-6">
+            <Card.Root className="py-6">
                 <div className="flex w-full flex-col gap-2 text-sm">
                     <h2 className="font-bold">Cliente</h2>
                     <p>{order.client.name}</p>
@@ -47,7 +47,7 @@ const OrderDetails = async ({ params }: OrderDetailsProps) => {
                 <div className="flex w-full flex-col gap-2 text-sm">
                     <h2 className="font-bold">Produtos</h2>
                     {order.products.map((product) => (
-                        <Card
+                        <Card.Root
                             key={product.id}
                             className="flex-row content-between"
                         >
@@ -60,7 +60,7 @@ const OrderDetails = async ({ params }: OrderDetailsProps) => {
                             <p>
                                 <FormattedCurrency value={product.total} />
                             </p>
-                        </Card>
+                        </Card.Root>
                     ))}
                     <Divider />
                     <div className="flex w-full items-center justify-between gap-2 text-sm">
@@ -70,7 +70,7 @@ const OrderDetails = async ({ params }: OrderDetailsProps) => {
                         </p>
                     </div>
                 </div>
-            </Card>
+            </Card.Root>
         </>
     );
 };
