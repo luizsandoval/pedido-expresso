@@ -79,7 +79,7 @@ const SecondStep = ({ onValidStateChange }: StepProps) => {
                                 name={`items.${index}`}
                                 control={control}
                                 defaultValue={{
-                                    product,
+                                    product: document,
                                     quantity: 0,
                                 }}
                                 render={({
@@ -89,7 +89,7 @@ const SecondStep = ({ onValidStateChange }: StepProps) => {
                                         onBlur={onBlur}
                                         onChange={(updatedValue) =>
                                             onChange({
-                                                product,
+                                                product: document,
                                                 quantity: updatedValue,
                                             })
                                         }

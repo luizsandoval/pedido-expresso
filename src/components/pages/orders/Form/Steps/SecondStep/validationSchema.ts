@@ -12,7 +12,8 @@ export const secondStepSchema = yup.object().shape({
                     name: yup.string().required(),
                     price: yup.number().required(),
                 }),
-                quantity: yup.number().required(),
+                quantity: yup.number(),
             }),
-        ),
+        )
+        .test((items) => items.some((item) => !!item.quantity)),
 });

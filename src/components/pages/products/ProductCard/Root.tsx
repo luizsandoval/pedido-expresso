@@ -21,14 +21,15 @@ const Root = forwardRef<HTMLDivElement, PropsWithChildren<RootProps>>(
                 shouldApplyHoverEffect
                 className="flex-row justify-between"
             >
-                <summary className="flex w-full flex-row gap-4">
-                    <Image
-                        width={40}
-                        height={40}
-                        objectFit="contain"
-                        alt={name}
-                        src={photo.url || ''}
-                    />
+                <summary className="flex w-full flex-1 flex-row gap-4">
+                    <div className="relative w-16 h-16">
+                        <Image
+                            fill
+                            alt={name}
+                            objectFit="contain"
+                            src={photo.url || ''}
+                        />
+                    </div>
                     <div className="flex flex-col gap-2">
                         <h2 className="text-sm">{name}</h2>
                         <p className="text-xs text-gray-400">
