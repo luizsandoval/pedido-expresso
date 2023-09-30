@@ -1,11 +1,11 @@
-import { Photo, Product } from '@/models/product';
-
-import { BaseService } from './base';
-import { api } from './api';
-import { ApiResponse } from '@/models/api/api-response';
 import { Dispatch } from 'react';
 
-const API = '/products';
+import { Apis } from '@/constants/apis';
+import { ApiResponse } from '@/models/api/api-response';
+import { Photo, Product } from '@/models/product';
+
+import { api } from './api';
+import { BaseService } from './base';
 
 export type UploadProgressInfo = {
     current: number;
@@ -25,7 +25,7 @@ export const uploadPhoto = async (
     formData.append('photo', photo, photo.name);
 
     const { data } = await api.post<ApiResponse<Photo>>(
-        `${API}/upload-photo`,
+        `${Apis.Products}/upload-photo`,
         formData,
         {
             onUploadProgress: (progressEvent) => {
@@ -37,7 +37,7 @@ export const uploadPhoto = async (
                         current: loaded / (1024 * 1024),
                         total: total / (1024 * 1024),
                     };
-    
+
                     onUploadProgress(progress);
                 }
             },
@@ -50,4 +50,6 @@ export const uploadPhoto = async (
     return data.data;
 };
 
-export const { get, create, update } = BaseService<Required<Product>>(API);
+export const { get, create, update } = BaseService<Required<Product>>(
+    Apis.Products,
+);

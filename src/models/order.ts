@@ -12,4 +12,6 @@ export interface Order extends BaseResource {
     total: number;
     client: Client;
     items: OrderItem[];
+    number?: number;
+    createdAt?: Date;
 }
