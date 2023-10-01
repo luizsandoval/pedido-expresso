@@ -7,6 +7,6 @@ const FormattedDate = ({ date }: FormattedDateProps) =>
         dateStyle: 'medium',
         formatMatcher: 'best fit',
         timeStyle: 'short',
-    }).format(date);
+    }).format(new Date(date));
 
 export { FormattedDate };
