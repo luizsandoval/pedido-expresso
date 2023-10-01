@@ -5,11 +5,11 @@ import { Order } from '@/models/order';
 
 import { Collection, findOne } from '../../_lib';
 
-export async function GET(_: Request, { params }: { params: { _id: string } }) {
+export async function GET(_: Request, { params }: { params: { id: string } }) {
     try {
-        const { _id } = params;
+        const { id } = params;
 
-        const data = await findOne<Order>(Collection.Orders, _id);
+        const data = await findOne<Order>(Collection.Orders, id);
 
         return (NextResponse<ApiResponse<Order>>).json({
             success: true,
