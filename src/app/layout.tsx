@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: {
-        template: '%s | POC Pinheiro',
+        template: '%s | Pedido expresso',
         absolute: '',
     },
 };
