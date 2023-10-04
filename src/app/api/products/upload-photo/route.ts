@@ -1,12 +1,20 @@
 import { NextResponse } from 'next/server';
-import { unlink, writeFile } from 'fs/promises';
-
-import { cloudinary } from '@/app/api/_lib/cloudinary';
+import {
+    deleteObject,
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytes,
+} from 'firebase/storage';
+    
+import { firebaseApp } from '@/config/firebase';
 import { ApiResponse } from '@/models/api/api-response';
 
 type UploadedFile = File & {
     path: string;
 };
+
+const storage = getStorage(firebaseApp);
 
 export async function POST(request: Request) {
     const formData = await request.formData();
@@ -15,21 +23,27 @@ export async function POST(request: Request) {
 
     if (!file) throw 'Missing photo for upload';
 
+    if (publicId) await deleteObject(ref(storage, publicId));
+
+    const storageRef = ref(
+        storage,
+        `uploads/${Date.now().toString()}_${file.name}`,
+    );
+
     const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
 
-    await writeFile(file.name, buffer);
+    await uploadBytes(storageRef, bytes, {
+        customMetadata: {
+            name: file.name,
+        },
+    });
 
-    if (publicId) await cloudinary.uploader.destroy(publicId);
-
-    const { url, public_id } = await cloudinary.uploader.upload(file.name);
-
-    await unlink(file.name);
+    const url = await getDownloadURL(storageRef);
 
     return (NextResponse<ApiResponse<string>>).json({
         data: {
             url,
-            publicId: public_id,
+            publicId: storageRef.fullPath,
         },
         success: true,
     });
