@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { ClientsList } from '@/components/pages/clients/ClientsList';
+import { ClientsList } from '@/app/clients/components/ClientsList';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { Title } from '@/components/shared/Title';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';

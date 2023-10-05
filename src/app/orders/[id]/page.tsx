@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { OrderDetails } from '@/components/pages/orders/Details';
+import { OrderDetails } from '@/app/orders/components/Details';
 import { getOne } from '@/services/orders';
 
 type OrderDetailsProps = {

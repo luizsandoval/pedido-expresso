@@ -1,10 +1,10 @@
 'use client';
 
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import { twMerge } from 'tailwind-merge';
 
 const User = () => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -17,11 +17,15 @@ const User = () => {
         [],
     );
 
+    const closeMenu = useCallback(() => setIsOpen(false), []);
+
     useEffect(() => {
         if (buttonRef.current)
             buttonOffsetY.current =
                 buttonRef.current.clientHeight + buttonRef.current.offsetTop;
     }, []);
+
+    useOutsideClick(buttonRef, closeMenu);
 
     return (
         <>
@@ -51,28 +55,26 @@ const User = () => {
             </button>
             {isOpen && (
                 <div
-                    className={twMerge(
-                        'absolute right-2 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
-                        `top-${Math.floor(buttonOffsetY.current / 4)}`,
-                    )}
+                    className="absolute right-2 z-10 mt-2 w-56 p-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    style={{
+                        top: Math.floor(buttonOffsetY.current),
+                    }}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
                     tabIndex={-1}
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMenu}
                 >
-                    <div className="py-1" role="none">
-                        <button
-                            type="button"
-                            onClick={() => signOut()}
-                            className="block w-full px-4 py-2 text-left text-sm text-red-300"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id="menu-item-3"
-                        >
-                            Sair
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        onClick={() => signOut()}
+                        className="block w-full px-4 py-2 text-left text-sm text-red-300"
+                        role="menuitem"
+                        tabIndex={-1}
+                        id="menu-item-3"
+                    >
+                        Sair
+                    </button>
                 </div>
             )}
         </>
