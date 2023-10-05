@@ -1,6 +1,6 @@
 import { Title } from '@/components/shared/Title';
 
-import { OrdersList } from '../orders/OrdersList';
+import { OrdersList } from '@/app/orders/components/OrdersList';
 
 const Orders = () => {
     return (

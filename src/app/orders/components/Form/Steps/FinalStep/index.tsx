@@ -2,13 +2,13 @@ import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
+import { OrderDetails } from '@/app/orders/components/Details';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
 import { Client } from '@/models/client';
 import { Order } from '@/models/order';
 import { create } from '@/services/orders';
 
-import { OrderDetails } from '../../../Details';
 
 import { getMessage } from './getMessage';
 

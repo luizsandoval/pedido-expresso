@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { Form } from '@/components/pages/products/Form';
+import { Form } from '@/app/products/components/Form';
 import { Card } from '@/components/shared/Card';
 import { Title } from '@/components/shared/Title';
 import { PageProps } from '@/models/page-props';

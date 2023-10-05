@@ -5,8 +5,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ClientCard } from '@/components/pages/clients/ClientCard';
-import { ClientsList } from '@/components/pages/clients/ClientsList';
+import { ClientCard } from '@/app/clients/components/ClientCard';
+import { ClientsList } from '@/app/clients/components/ClientsList';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
 import { Radio } from '@/components/shared/Radio';

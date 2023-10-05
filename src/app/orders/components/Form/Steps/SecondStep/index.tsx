@@ -5,8 +5,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { ProductCard } from '@/components/pages/products/ProductCard';
-import { ProductsList } from '@/components/pages/products/ProductsList';
+import { ProductCard } from '@/app/products/components/ProductCard';
+import { ProductsList } from '@/app/products/components/ProductsList';
 import { CounterInput } from '@/components/shared/CounterInput';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
