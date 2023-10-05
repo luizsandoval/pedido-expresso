@@ -8,8 +8,13 @@ const nextConfig = {
                 hostname: 'firebasestorage.googleapis.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+            },
         ],
-        domains: ['firebasestorage.googleapis.com'],
+        domains: ['firebasestorage.googleapis.com', 'lh3.googleusercontent.com'],
     }
 }
 
