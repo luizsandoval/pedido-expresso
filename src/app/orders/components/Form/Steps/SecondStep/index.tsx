@@ -73,6 +73,7 @@ const SecondStep = ({ onValidStateChange }: StepProps) => {
                         <ProductCard.Root
                             key={key}
                             ref={targetRef}
+                            className='flex-col'
                             product={document}
                         >
                             <Controller
