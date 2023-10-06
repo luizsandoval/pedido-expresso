@@ -11,7 +11,7 @@ export type RenderItem<T> = (props: {
     targetRef?: MutableRefObject<HTMLDivElement | null>;
 }) => ReactNode;
 
-export type InfiniteListProps<T extends Required<BaseResource>> = {
+export type InfiniteListProps<T extends BaseResource> = {
     renderItem: RenderItem<T>;
     fetcher(index: number, searchValue?: string): Promise<GetDataFormat<T>>;
     fetcherKey: FetcherKeys;

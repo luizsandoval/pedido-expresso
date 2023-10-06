@@ -7,5 +7,6 @@ export const DEFAULT_RESULTS_LIMIT = 5;
 export enum Collection {
     Clients = 'clients',
     Orders = 'orders',
+    Users = 'users',
     Products = 'products',
 };

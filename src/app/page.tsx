@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 
 import { Container } from '@/components/core/Container';
+import { Header } from '@/components/core/Header';
 import { NavigationFooter } from '@/components/shared/NavigationFooter';
 import { PrimaryButton } from '@/components/shared/PrimaryButton';
 
-import { Header } from './components/Header';
 import { Orders } from './components/Orders';
 import { Shortcuts } from './components/Shortcuts';
 

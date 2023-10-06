@@ -13,7 +13,7 @@ import { SearchInput } from '../SearchInput';
 
 import { InfiniteListProps } from './types';
 
-const InfiniteList = <T extends Required<BaseResource>>({
+const InfiniteList = <T extends BaseResource>({
     fetcher,
     renderItem,
     fetcherKey,
