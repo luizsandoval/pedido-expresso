@@ -1,6 +1,9 @@
 import { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
+import { mongoClientPromise } from '@/app/api/_lib/mongodb';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+
 const NextAuthOptions: AuthOptions = {
     providers: [
         GoogleProvider({
@@ -8,6 +11,15 @@ const NextAuthOptions: AuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
         }),
     ],
+    adapter: MongoDBAdapter(mongoClientPromise, {
+        databaseName: process.env.MONGODB_DATABASE,
+        collections: {
+            Users: 'users',
+            Accounts: 'accounts',
+            Sessions: 'sessions',
+            VerificationTokens: 'verificationtokens',
+        },
+    }),
     session: { strategy: 'jwt' },
     pages: {
         signIn: '/auth/signin',

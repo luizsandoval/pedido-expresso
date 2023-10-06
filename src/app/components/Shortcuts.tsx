@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FiUser, FiBox } from 'react-icons/fi';
+import { FiUser, FiBox, FiUsers } from 'react-icons/fi';
 
 import { Title } from '@/components/shared/Title';
 
@@ -24,6 +24,15 @@ const Shortcuts = () => (
                     >
                         <FiBox />
                         Produtos
+                    </Link>
+                </li>
+                <li className="w-full rounded-lg border-2 border-gray-100 transition-all hover:border-2 hover:bg-indigo-50">
+                    <Link
+                        href="/users"
+                        className="flex w-full items-center justify-between gap-4 p-4"
+                    >
+                        <FiUsers />
+                        Usuários
                     </Link>
                 </li>
             </ul>
