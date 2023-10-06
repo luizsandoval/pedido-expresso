@@ -9,14 +9,6 @@ const NextAuthOptions: AuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || '',
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-            profile(profile) {
-                const lastLogin = new Date();
-
-                return {
-                    ...profile,
-                    lastLogin,
-                };
-            },
         }),
     ],
     adapter: MongoDBAdapter(mongoClientPromise, {
