@@ -20,8 +20,8 @@ const count = async (
     const data = {
         pipeline,
         collection,
-        database: process.env.MONGO_DATABASE,
-        dataSource: process.env.MONGO_DATA_SOURCE,
+        database: process.env.MONGODB_DATABASE,
+        dataSource: process.env.MONGODB_DATA_SOURCE,
     };
 
     const { data: response } = await api.post<MongoDBCountResponse>(

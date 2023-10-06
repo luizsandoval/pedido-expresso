@@ -19,8 +19,8 @@ const find = async <T>(
         filter,
         collection,
         sort: { _id: -1 },
-        database: process.env.MONGO_DATABASE,
-        dataSource: process.env.MONGO_DATA_SOURCE,
+        database: process.env.MONGODB_DATABASE,
+        dataSource: process.env.MONGODB_DATA_SOURCE,
     };
 
     const getDocuments = api.post<MongoDBFindResponse<T>>('/find', data);
