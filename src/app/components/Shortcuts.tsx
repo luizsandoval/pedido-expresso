@@ -7,7 +7,7 @@ const Shortcuts = () => (
     <section className="flex h-auto w-full flex-col gap-3">
         <Title>ATALHOS</Title>
         <nav>
-            <ul className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-gray-100 bg-white p-4">
+            <ul className="grid grid-cols-2 w-full items-center justify-center gap-2 rounded-lg border-2 border-gray-100 bg-white p-4 sm:flex">
                 <li className="w-full rounded-lg border-2 border-gray-100 transition-all hover:border-2 hover:bg-indigo-50">
                     <Link
                         href="/clients"

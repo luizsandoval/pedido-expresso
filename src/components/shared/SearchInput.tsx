@@ -9,17 +9,19 @@ import {
     useRef,
 } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import { Spinner } from './Spinner';
 
 type SearchInputProps = Omit<
     DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
     'onChange' | 'className' | 'placeholder'
 > & {
     placeholder: string;
+    isLoading?: boolean;
 };
 
 const DELAY_IN_MS = 500;
 
-const SearchInput = ({ placeholder, ...rest }: SearchInputProps) => {
+const SearchInput = ({ placeholder, isLoading, ...rest }: SearchInputProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -55,6 +57,11 @@ const SearchInput = ({ placeholder, ...rest }: SearchInputProps) => {
                 className="w-full rounded-lg border-2 border-gray-100 bg-gray-50 p-4 pl-10"
                 {...rest}
             />
+            {isLoading && (
+                <span className="absolute bottom-auto right-2 mx-2 text-lg text-gray-500">
+                    <Spinner />
+                </span>
+            )}
         </div>
     );
 };
