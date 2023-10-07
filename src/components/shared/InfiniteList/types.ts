@@ -14,5 +14,6 @@ export type RenderItem<T> = (props: {
 export type InfiniteListProps<T extends BaseResource> = {
     renderItem: RenderItem<T>;
     fetcher(index: number, searchValue?: string): Promise<GetDataFormat<T>>;
+    initialData?: GetDataFormat<T>;
     fetcherKey: FetcherKeys;
 };

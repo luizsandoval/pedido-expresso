@@ -8,10 +8,17 @@ import { FormattedDate } from '@/components/shared/FormattedDate';
 import { InfiniteList } from '@/components/shared/InfiniteList';
 import { FetcherKeys } from '@/constants/fetcher-keys';
 import { get } from '@/services/orders';
+import { GetDataFormat } from '@/models/api/get';
+import { Order } from '@/models/order';
 
-const OrdersList = () => (
+type OrdersList = {
+    orders?: GetDataFormat<Order>;
+};
+
+const OrdersList = ({ orders }: OrdersList) => (
     <InfiniteList
         fetcher={get}
+        initialData={orders}
         fetcherKey={FetcherKeys.Orders}
         renderItem={({ document, key, targetRef }) => (
             <Link key={key} href={`/orders/${document._id}`} className="w-full">

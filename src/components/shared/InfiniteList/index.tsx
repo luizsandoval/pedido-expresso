@@ -12,10 +12,12 @@ import { Card } from '../Card';
 import { SearchInput } from '../SearchInput';
 
 import { InfiniteListProps } from './types';
+import { Spinner } from '../Spinner';
 
 const InfiniteList = <T extends BaseResource>({
     fetcher,
     renderItem,
+    initialData,
     fetcherKey,
 }: InfiniteListProps<T>) => {
     const searchParams = useSearchParams();
@@ -32,6 +34,10 @@ const InfiniteList = <T extends BaseResource>({
             return [index + 1, searchValue, fetcherKey];
         },
         ([index, searchValue]) => fetcher(index, searchValue),
+        {
+            keepPreviousData: true,
+            fallbackData: initialData ? [initialData] : [],
+        },
     );
 
     const hasNextPage = useMemo(
@@ -54,10 +60,15 @@ const InfiniteList = <T extends BaseResource>({
         },
     );
 
-    if (isLoading) return <h2>Carregando...</h2>;
-
     if (!documents?.length)
         return <h2>Registros cadastrados aparecerão aqui...</h2>;
+
+    if (!initialData && isLoading)
+        return (
+            <div className="flex w-full items-center justify-center">
+                <Spinner />
+            </div>
+        );
 
     return (
         <Card.Root>
@@ -65,6 +76,7 @@ const InfiniteList = <T extends BaseResource>({
                 autoFocus
                 defaultValue={searchValue}
                 placeholder="Digite para filtrar..."
+                isLoading={isLoading}
             />
             {documents?.map((document: any, index) =>
                 renderItem({
